@@ -35,16 +35,17 @@ public class OfficeController {
     }
 
     @GetMapping("/delete-office")
-    public String deleteOffice(@RequestParam String officeCode, ModelMap modelMap) {
+    public String deleteOfficeById(@RequestParam String officeCode, Model model) {
         Office office = OfficeService.deleteOffice(officeCode);
-        modelMap.addAttribute("office", office);
+        model.addAttribute("office", office);
+        model.addAttribute("message", "Office deleted successfully");
         return "office_detail";
     }
 
     @PostMapping("/create-office")
-    public String createOffice(Office office, ModelMap modelMap) {
+    public String createOffice(Office office, Model model) {
         Office newOffice = OfficeService.createOffice(office);
-        modelMap.addAttribute("office", newOffice);
+        model.addAttribute("office", newOffice);
         return "office_detail";
     }
     @PostMapping("/update-office")
