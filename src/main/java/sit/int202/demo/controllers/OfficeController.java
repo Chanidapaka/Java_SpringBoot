@@ -3,7 +3,6 @@ package sit.int202.demo.controllers;
 import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -16,21 +15,23 @@ import java.util.List;
 @Controller
 @RequestMapping("/offices")
 public class OfficeController {
-    @Autowired
-    private  OfficeService repository;
+    private final OfficeService repository;
 
-    @GetMapping("/all")
-    public String getAllOffices(Model model) {
-        List<Office> officeList = repository.findAll();
-        model.addAttribute("offices", officeList);
-        return "office_list";
+    public OfficeController(OfficeService repository) {
+        this.repository = repository;
     }
 
     @GetMapping("")
-    public String getOfficeById(@RequestParam String officeCode, ModelMap modelMap) {
-        Office office = OfficeService.getOfficeByCode(officeCode);
-        modelMap.addAttribute("office", office);
-        return "office_detail";
+    public String getOfficeById(@RequestParam String officeCode, Model model) {
+        Office office = OfficeService.getOffice(officeCode);
+        model.addAttribute("office", office);
+        return "office_details";
+    }
+    @GetMapping("/all")
+    public String getAllOffices(Model model) {
+        List<Office> officeList = repository.getAllOffices();
+        model.addAttribute("offices", officeList);
+        return "office_list";
     }
 
     @GetMapping("/delete-office")

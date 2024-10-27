@@ -19,34 +19,20 @@
     </div>
     <div class="row" th:each="o :${offices}">
         <div class="col-2" th:text="${o.officeCode}"></div>
-        <div class="col-2" th:text="${o.city}"></div>
+        <div class="col-2">
+            <a th:href="@{'/offices?officeCode=' + ${o.officeCode}}">
+            <span th:text="${o.city}"></span></a>
+        </div>
         <div class="col-2" th:text="${o.phone}"></div>
         <div class="col-3" th:text="${o.addressLine1}"></div>
         <div class="col-2" th:text="${o.country}"></div>
 
     </div>
-<!--        <div class="col-2">Update/Delete</div>-->
 
-<!--    <div class="row p4" th:each="office : ${offices}">-->
-<!--        <div class="col-1">-->
-<!--            <a th:href="@{'/offices?officeCode='+ ${office.officeCode}}">-->
-<!--                <span th:text="${office.officeCode}"/></a></div>-->
-<!--        <div class="col-2" th:text="${office.city}"/>-->
-<!--        <div class="col-3" th:text="${office.addressLine1}"/>-->
-<!--        <div class="col-2" th:text="${office.country}"/>-->
-<!--        <div class="col-2" th:text="${office.phone}"/>-->
-<!--        <div class="col-2">-->
-<!--            <a th:href="@{'/offices/delete-office?officeCode='+ ${office.officeCode}}">-->
-<!--                <button style="background-color: lightsalmon"> X </button>-->
-<!--            </a>-->
-<!--            <a th:href="@{'/offices/update_form?officeCode='+ ${office.officeCode}}">-->
-<!--            <button style="margin-left: 15px;background-color:aqua">update</button>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <hr>-->
-<!--    <a href="/"><button>[ Home ]</button></a>-->
-<!--    <a style="margin-left: 15px" href="/offices/office_form"><button>Add New Office</button></a>-->
+    <hr>
+      <a href="/home"><button>[ Home ]</button></a>
+       <a style="margin-left: 15px" href="/offices/office_form"><button>Add New Office</button></a>
+
 </div>
 </body>
 </html>
