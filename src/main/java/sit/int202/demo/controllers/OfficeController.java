@@ -1,7 +1,9 @@
 package sit.int202.demo.controllers;
 
+import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +16,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/offices")
 public class OfficeController {
-    private final OfficeService officeService;
-
-    public OfficeController(OfficeService officeService) {
-        this.officeService = officeService;
-    }
+    @Autowired
+    private  OfficeService repository;
 
     @GetMapping("/all")
-    public String getAllOffices(ModelMap modelMap) {
-        List<Office> offices = officeService.getAllOffices();
-        modelMap.addAttribute("offices", offices);
+    public String getAllOffices(Model model) {
+        List<Office> officeList = repository.findAll();
+        model.addAttribute("offices", officeList);
         return "office_list";
     }
 
