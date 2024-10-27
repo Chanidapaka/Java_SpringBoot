@@ -47,11 +47,11 @@
         <div class="col-1" th:text="${p.productScale}"/>
         <div class="col-2" th:text="${p.productVendor}"/>
         <div class="col-1" th:text="${p.buyPrice}"/>
-        <div class="col-2">
-            <a th:href="@{'/products/delete-product?productCode='+ ${p.productCode}}">
-                <button style="background-color: lightsalmon"> X</button>
-            </a>
-            <a th:href="@{'/products/update_product?productCode='+ ${p.productCode}}">
+    </div>
+    <hr>
+    <a class="p-2" th:text="${index}"
+           th:each="index : ${#numbers.sequence(1, page.totalPages)}"
+            th:href="@{'products/page?pageNumber=' + @{${index-1}}"
                 <button style="margin-left: 15px;background-color:aqua">update</button>
             </a>
         </div>
