@@ -16,8 +16,9 @@
         <div class="col-2">Phone#</div>
         <div class="col-3">Address</div>
         <div class="col-2">Country</div>
+        <div class="col-1">Update/Delete</div>
     </div>
-    <div class="row" th:each="o :${offices}">
+    <div class="row p-2" th:each="o :${offices}">
         <div class="col-2" th:text="${o.officeCode}"></div>
         <div class="col-2">
             <a th:href="@{'/offices?officeCode=' + ${o.officeCode}}">
@@ -26,6 +27,14 @@
         <div class="col-2" th:text="${o.phone}"></div>
         <div class="col-3" th:text="${o.addressLine1}"></div>
         <div class="col-2" th:text="${o.country}"></div>
+        <div class="col-1">
+            <a th:href="@{'/offices/delete?officeCode=' +${o.officeCode}}">
+                <button style="background: red; color: wheat"> X </button>
+            </a>
+            <a th:href="@{'/offices/update?officeCode=' +${o.officeCode}}">
+                <button style="background: darkblue; color: wheat; margin-left: 10px"> U </button>
+            </a>
+        </div>
 
     </div>
 
