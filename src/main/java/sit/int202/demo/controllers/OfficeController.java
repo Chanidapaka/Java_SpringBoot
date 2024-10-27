@@ -28,21 +28,21 @@ public class OfficeController {
 
     @GetMapping("")
     public String getOfficeById(@RequestParam String officeCode, ModelMap modelMap) {
-        Office office = officeService.getOfficeByCode(officeCode);
+        Office office = OfficeService.getOfficeByCode(officeCode);
         modelMap.addAttribute("office", office);
         return "office_detail";
     }
 
     @GetMapping("/delete-office")
     public String deleteOffice(@RequestParam String officeCode, ModelMap modelMap) {
-        Office office = officeService.deleteOffice(officeCode);
+        Office office = OfficeService.deleteOffice(officeCode);
         modelMap.addAttribute("office", office);
         return "office_detail";
     }
 
     @PostMapping("/create-office")
     public String createOffice(Office office, ModelMap modelMap) {
-        Office newOffice = officeService.createOffice(office);
+        Office newOffice = OfficeService.createOffice(office);
         modelMap.addAttribute("office", newOffice);
         return "office_detail";
     }
@@ -57,7 +57,7 @@ public class OfficeController {
         office.setPostalCode(request.getParameter("postalCode"));
         office.setTerritory(request.getParameter("territory"));
         office.setAddressLine1(request.getParameter("addressLine1"));
-        Office newOffice = officeService.updateOffice(office);
+        Office newOffice = OfficeService.updateOffice(office);
         modelMap.addAttribute("office", newOffice);
         response.sendRedirect("/offices/all");
         return ;
@@ -70,7 +70,7 @@ public class OfficeController {
     }
     @GetMapping("/update_form")
     public String getOfficeForm(@RequestParam String officeCode, ModelMap modelMap) {
-        Office office = officeService.getOfficeByCode(officeCode);
+        Office office = OfficeService.getOfficeByCode(officeCode);
         modelMap.addAttribute("office", office);
         return "update_form";
     }
