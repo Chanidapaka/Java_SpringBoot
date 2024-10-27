@@ -42,38 +42,43 @@ public class OfficeController {
         return "office_detail";
     }
 
-    @PostMapping("/create-office")
-    public String createOffice(Office office, Model model) {
-        Office newOffice = OfficeService.createOffice(office);
-        model.addAttribute("office", newOffice);
-        return "office_detail";
-    }
-    @PostMapping("/update-office")
-    public void updateOffice(HttpServletRequest request
-            , ModelMap modelMap, HttpServletResponse response) throws IOException {
-        Office office = new Office();
-        office.setOfficeCode(request.getParameter("officeCode"));
-        office.setCity(request.getParameter("city"));
-        office.setCountry(request.getParameter("country"));
-        office.setPhone(request.getParameter("phone"));
-        office.setPostalCode(request.getParameter("postalCode"));
-        office.setTerritory(request.getParameter("territory"));
-        office.setAddressLine1(request.getParameter("addressLine1"));
-        Office newOffice = OfficeService.updateOffice(office);
-        modelMap.addAttribute("office", newOffice);
-        response.sendRedirect("/offices/all");
-        return ;
-        //return "office_detail";
+    @GetMapping("/create")
+    public String createForm() {
+        return "create_form";
     }
 
-    @GetMapping("/office_form")
-    public String getOfficeForm() {
-        return "office_form";
+    @PostMapping("/create")
+    public String createOffice(Office office, HttpServletResponse response) throws IOException {
+        repository.addOffice(office);
+        response.sendRedirect("/offices/all");
+        return "create_form";
     }
-    @GetMapping("/update_form")
-    public String getOfficeForm(@RequestParam String officeCode, ModelMap modelMap) {
-        Office office = OfficeService.getOfficeByCode(officeCode);
-        modelMap.addAttribute("office", office);
+
+    @GetMapping("/update")
+    public String getOfficeForm(@RequestParam String officeCode, Model model) {
+        Office office = repository.getOffice(officeCode);
+        model.addAttribute("office", office);
         return "update_form";
+    }
+    @PostMapping("/update")
+    public void updateOffice(Office office, HttpServletResponse response) throws IOException {
+        repository.updateOffice(office) {
+            response.sendRedirect("/office/all");
+            Office office = new Office();
+            office.setOfficeCode(request.getParameter("officeCode"));
+            office.setCity(request.getParameter("city"));
+            office.setCountry(request.getParameter("country"));
+            office.setPhone(request.getParameter("phone"));
+            office.setPostalCode(request.getParameter("postalCode"));
+            office.setTerritory(request.getParameter("territory"));
+            office.setAddressLine1(request.getParameter("addressLine1"));
+            Office newOffice = OfficeService.updateOffice(office);
+            modelMap.addAttribute("office", newOffice);
+            response.sendRedirect("/offices/all");
+            return;
+            //return "office_detail";
+        }
+
+
     }
 }

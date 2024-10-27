@@ -10,7 +10,7 @@
 <h1 style="margin-left: 100px">Create New Office ::</h1>
 <hr>
 <div class="container p4 m4">
-    <form action="/offices/update-office" method="post">
+    <form method="post" action="/offices/update" >
         Office Code: <input type="text" readonly name="officeCode" th:value="${office.officeCode}"/><br>
         City: <input type="text" name="city" th:value="${office.city}"/><br>
         Phone#: <input type="text" name="phone" th:value="${office.phone}"/><br>

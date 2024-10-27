@@ -27,6 +27,7 @@
         <div class="col-2" th:text="${o.phone}"></div>
         <div class="col-3" th:text="${o.addressLine1}"></div>
         <div class="col-2" th:text="${o.country}"></div>
+
         <div class="col-1">
             <a th:href="@{'/offices/delete?officeCode=' +${o.officeCode}}">
                 <button style="background: red; color: wheat"> X </button>
