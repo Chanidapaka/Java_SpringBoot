@@ -5,36 +5,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 //สร้างอันนี้อันดับแรก
 @Controller
 public class AppController {
     //เมื่อเรียกด้วย/home ก็จะเข้าตรงนี้
-    @RequestMapping("/home")
-    public String homePage(){
-        return "home";
-    };
+        @RequestMapping("/home")
+        public String homePage(@CookieValue("bg") String bg,
+                               @CookieValue("fg") String fg,
+                               Model model) {
+            model.addAttribute("bg", bg);
+            model.addAttribute("fg", fg);
+            return "home"; //ต้องมี home.html อยู่ใน templete
+        }
 
-    @GetMapping("/theme")
-    public String selectTheme(){
-        return "theme";
-    };
+        @GetMapping("/theme")
+        public String selectTheme() {
+            return "theme";
+        }
 
-    @PostMapping("/theme")
-    public String applyTheme(@RequestParam String theme, HttpServletResponse response){
-        Cookie cookie = new Cookie("theme", theme);
-        cookie.setMaxAge(60*60*8);
-        response.addCookie(cookie);
-        return "home";
+        @PostMapping("/theme")
+        public String applyTheme(@RequestParam String theme, HttpServletResponse response) {
+            Cookie cookie = new Cookie("bg", theme);
+            cookie.setMaxAge(60 * 60 * 24 * 8);
+            response.addCookie(cookie);
 
-        cookie  = new Cookie("fg", theme.equalsIgnoreCase("cadetblue")?"yeellow":"black");
-        cookie.setMaxAge(60*60*8);
-        response.addCookie(cookie);
-        return "home";
-    };
-
-}
+            cookie = new Cookie("fg", theme.equalsIgnoreCase("cadetblue") ? "yellow" : "black");
+            cookie.setMaxAge(60 * 60 * 24 * 8);
+            response.addCookie(cookie);
+            return "redirect:/home";
+        }
+    }
